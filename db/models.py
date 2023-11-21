@@ -12,7 +12,7 @@ class Ingredient(Base):
     id: Mapped[uuid.UUID] = mapped_column(sqlalchemy.UUID, primary_key=True)
     name: Mapped[str] = mapped_column(sqlalchemy.String(256), nullable=False)
     owner_id: Mapped[uuid.UUID] = mapped_column(sqlalchemy.UUID, nullable=True)
-    kcal: Mapped[float] = mapped_column(sqlalchemy.Float, nullable=True)
+    kcals: Mapped[float] = mapped_column(sqlalchemy.Float, nullable=True)
     proteins: Mapped[float] = mapped_column(sqlalchemy.Float, nullable=True)
     fats: Mapped[float] = mapped_column(sqlalchemy.Float, nullable=True)
     carbohydrates: Mapped[float] = mapped_column(sqlalchemy.Float, nullable=True)

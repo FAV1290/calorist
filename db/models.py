@@ -1,4 +1,5 @@
 import uuid
+import typing
 import datetime
 import sqlalchemy
 from sqlalchemy.orm import Mapped, mapped_column

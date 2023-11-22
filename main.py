@@ -2,8 +2,7 @@ from bot import CaloristTGBot
 
 
 def main() -> None:
-    calorist = CaloristTGBot()
-    calorist.run()
+    CaloristTGBot().run()
 
 
 if __name__ == '__main__':

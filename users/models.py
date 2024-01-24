@@ -7,8 +7,8 @@ class CaloristUser(AbstractUser):
     last_name = None
     email = models.EmailField(unique=True, null=False, blank=False)
     date_updated = models.DateTimeField(auto_now=True, null=False)
-    ingredients = models.ManyToManyField('Ingredient', through='UserIngredient')
-    dishes = models.ManyToManyField('Dish', through='UserDish')
+    ingredients = models.ManyToManyField('dishes.Ingredient', through='dishes.UserIngredient')
+    dishes = models.ManyToManyField('dishes.Dish', through='dishes.UserDish')
 
     class Meta:
         ordering = ['username']

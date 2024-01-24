@@ -1,21 +1,23 @@
 from django.db import models
 
-from calorist.settings import AUTH_USER_MODEL
+from django.conf import settings
 
 
 class UserIngredient(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ingredient = models.ForeignKey('Ingredient', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['ingredient', 'user']
 
+
 class UserDish(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     dish = models.ForeignKey('Dish', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['dish', 'user']
+
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=128, null=False, blank=False)
@@ -23,7 +25,7 @@ class Ingredient(models.Model):
     proteins = models.FloatField(null=True, blank=True)
     fats = models.FloatField(null=True, blank=True)
     carbonhydrates = models.FloatField(null=True, blank=True)
-    created_by = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
 
@@ -48,7 +50,7 @@ class DishIngredient(models.Model):
 class Dish(models.Model):
     name = models.CharField(max_length=128, null=False, blank=False)
     ingredients = models.ManyToManyField(Ingredient, through='DishIngredient')
-    created_by = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
 

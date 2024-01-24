@@ -1,13 +1,8 @@
 from django.contrib import admin
 
-from dishes.models import Ingredient, Dish
+from dishes.models import Ingredient, DishIngredient, Dish, UserIngredient, UserDish
 
 
-@admin.register(Ingredient)
-class IngredientAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Dish)
-class DishAdmin(admin.ModelAdmin):
+@admin.register(Dish, Ingredient, DishIngredient, UserIngredient, UserDish)
+class DishesAdmin(admin.ModelAdmin):
     pass

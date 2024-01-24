@@ -17,6 +17,7 @@ class UserDish(models.Model):
 
     class Meta:
         ordering = ['dish', 'user']
+        verbose_name_plural = 'User dishes'
 
 
 class Ingredient(models.Model):
@@ -34,8 +35,9 @@ class Ingredient(models.Model):
 
     def __str__(self) -> str:
         nutrients = [self.kcal, self.proteins, self.fats, self.carbonhydrates]
-        nutrients_str = map(lambda x: f'{x:.2f}' if x else '-', nutrients)
-        return f'{self.name} ({"/".join(nutrients_str)})'
+        nutrients_str = map(lambda x: f'{x:.2f}'.replace('.', ',') if x else '-', nutrients)
+        nutrients_str = map(''.join, zip(['К: ', 'Б: ', 'Ж: ', 'У: '], nutrients_str))
+        return f'{self.name} ({" / ".join(nutrients_str)})'
 
 
 class DishIngredient(models.Model):
@@ -49,10 +51,14 @@ class DishIngredient(models.Model):
 
 class Dish(models.Model):
     name = models.CharField(max_length=128, null=False, blank=False)
-    ingredients = models.ManyToManyField(Ingredient, through='DishIngredient')
+    ingredients: models.ManyToManyField = models.ManyToManyField(Ingredient, through='DishIngredient')
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
 
     class Meta:
         ordering = ['name']
+        verbose_name_plural = 'dishes'
+
+    def __str__(self) -> str:
+        return self.name

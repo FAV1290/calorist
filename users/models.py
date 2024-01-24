@@ -15,6 +15,6 @@ class CaloristUser(AbstractUser):
 
     def get_full_name(self) -> str:
         return self.username
-    
+
     def get_short_name(self) -> str:
         return self.username

@@ -32,7 +32,7 @@ SECRET_KEY = os.environ['CALORIST_DJANGO_SECRET']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [os.environ['CALORIST_DB_HOST']]
+ALLOWED_HOSTS: list[str] = []
 
 
 # Application definition

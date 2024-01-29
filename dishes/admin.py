@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from dishes.models import Ingredient, DishIngredient, Dish, UserIngredient, UserDish
+
+
+@admin.register(Dish, Ingredient, DishIngredient, UserIngredient, UserDish)
+class DishesAdmin(admin.ModelAdmin):
+    pass

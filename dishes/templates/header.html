@@ -1,9 +1,9 @@
 {% load static %}
-<header class="header">
-    <div class="header_menu">
-        <table border="0" style="text-align: center;">
+<header class='header'>
+    <div class='header_menu'>
+        <table border='0'>
             <tr>
-                <td width='30%'><img src='{% static "/logo.svg" %}' height="50px"></td>
+                <td width='30%'><a href = '{% url "index" %}'><img src='{% static "/logo.svg" %}' height="50px"></a></td>
                 <td width='40%'>
                     <div class="search">
                         <form>
@@ -12,7 +12,7 @@
                         </form>
                     </div>
                 </td>                        
-                <td width='10%'>Ингредиенты</td>
+                <td width='10%'><a style='text-decoration: none; color: white;'href= '{% url "ingredients_all" %}'>Ингредиенты</a></td>
                 <td width='10%'>Рецепты</td>
                 <td width='10%'>Профиль</td>
             </tr>

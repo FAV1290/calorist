@@ -17,98 +17,45 @@
                 <th width="15%">Углеводы (г)</th>
             </thead>
             <tbody>
+                {% for item in ingredients_page %}
                 <tr>
-                    <td>Молоко</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.kcal|floatformat }}</td>
+                    <td>{{ item.proteins|floatformat }}</td>
+                    <td>{{ item.fats|floatformat }}</td>
+                    <td>{{ item.carbonhydrates|floatformat }}</td>
                 </tr>
-                <tr>
-                    <td>Огурцы</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
-                <tr>
-                    <td>Молоко</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
-                <tr>
-                    <td>Огурцы</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
-                <tr>
-                    <td>Молоко</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
-                <tr>
-                    <td>Огурцы</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
-                <tr>
-                    <td>Молоко</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
-                <tr>
-                    <td>Огурцы</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
-                <tr>
-                    <td>Молоко</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
-                <tr>
-                    <td>Огурцы</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
-                <tr>
-                    <td>Молоко</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
-                <tr>
-                    <td>Огурцы</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
-                <tr>
-                    <td>Молоко</td>
-                    <td>100,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                    <td>10,00</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
+    {% if ingredients_page.has_previous or ingredients_page.has_next %}
+    <div class="pagination" style="margin-top: 10px; padding-left: 15px;">
+        <span class="step-links">
+            {% if ingredients_page.has_previous %}
+                <a href="?page=1">&laquo;</a>
+                &nbsp;
+                <a href="?page={{ ingredients_page.previous_page_number }}">&#8249;</a>
+            {% else %}
+                &laquo;
+                &nbsp;
+                &#8249;
+            {% endif %}
+    
+            <span class="current">
+                &nbsp;Страница {{ ingredients_page.number }} из {{ ingredients_page.paginator.num_pages }}&nbsp;
+            </span>
+    
+            {% if ingredients_page.has_next %}
+                <a href="?page={{ ingredients_page.next_page_number }}">&#8250;</a>
+                &nbsp;
+                <a href="?page={{ ingredients_page.paginator.num_pages }}">&raquo;</a>
+            {% else %}
+                &#8250;
+                &nbsp;
+                &raquo;
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
 {% endblock %}

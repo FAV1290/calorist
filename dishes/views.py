@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator
+
+from .models import Ingredient
 
 
 def index(request):
@@ -6,4 +9,8 @@ def index(request):
 
 
 def ingredients(request):
-    return render(request, 'ingredients.html')
+    all_ingredients = Ingredient.objects.all()
+    ingredients_paginator = Paginator(all_ingredients, 10)
+    page_number = request.GET.get('page')
+    adjusted_page = ingredients_paginator.get_page(page_number)
+    return render(request, 'ingredients.html', {'ingredients_page': adjusted_page})

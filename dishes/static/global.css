@@ -1,0 +1,145 @@
+/* Common */
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    background-color: #f8f4f4;
+}
+
+.header, .content-wrapper, .container, .content, .footer {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-direction: row;
+}
+
+/* Header */
+
+.header {
+    margin-bottom: 10px;
+    background: #412985;
+    color: #fff;
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.header_menu {
+    width: 100%;
+    & table {
+        margin-left: auto;
+        margin-right: auto;
+        width: 1280px;
+        height: 50px;
+    }
+}
+
+.search {background: #412985;}
+
+.search form {
+    position: relative;
+    width: 450px;
+    margin: 0 auto;
+  }
+.search input {
+  width: 100%;
+  height: 42px;
+  padding-left: 10px;
+  border: 2px solid #b7bbbb;
+  border-radius: 15px;
+  outline: none;
+  background: #F9F0DA;
+  color: #9E9C9C;
+}
+.search button {
+  position: absolute; 
+  top: 0;
+  right: 0px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  background: #6CAEDD;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+.search button:before {
+  content: "\f002";
+  font-family: FontAwesome;
+  font-size: 16px;
+  color: #F9F0DA;
+}
+
+/* Footer */
+
+.footer {
+    margin-top: 10px;
+    height: 100px;
+    background: #364850;
+    color: #ffffff;
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+}
+
+/* Content zone */
+
+.content-wrapper {
+    margin: 0 auto;
+    flex-direction: column;
+    height: 100%;
+}
+
+.container {
+    width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: nowrap;
+    flex: 1 0 auto;
+}
+
+/* Main content */
+
+.content {
+    width: 100%;
+    flex-direction: column;
+    flex: 1 1 auto;
+    order: 0;
+}
+
+/* Sidebar */
+
+.sidebar {
+    background: #6CAEDD;
+    margin-left: 15px;
+    height: 165px;
+    flex: 0 0 auto;
+    width: 275px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar_table {
+    color: #ffffff;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    & table {
+        width: 100%;
+        height: 150px;
+    }
+}

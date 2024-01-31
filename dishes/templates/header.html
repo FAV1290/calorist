@@ -3,26 +3,26 @@
     <div class='header_menu'>
         <table border='0'>
             <tr>
-                <td width='17%' align="center"><a href = '{% url "index" %}'><img src='{% static "/logo.svg" %}' height="50px"></a></td>
-                <td width='38%' align="center">
-                    <div class="search">
-                        <form>
-                        <input type="text" placeholder="Поиск по сайту...">
+                <td width='17%' align='center'><a href = '{% url "index" %}'><img src='{% static "/logo.svg" %}' height='50px'></a></td>
+                <td width='38%' align='center'>
+                    <div class='search'>
+                        <form method='get' action='{% url "search" %}'>
+                        <input type='text' name='q' placeholder='Поиск по сайту...'>
                         <button type="submit"></button>
                         </form>
                     </div>
                 </td>                        
-                <td width='12%' align="center"><button class="dropbtn"><a style='text-decoration: none; color: white;' href= '{% url "ingredients_all" %}?page=1'>Ингредиенты</a></button></td>
-                <td width="1%"></td>
-                <td width='12%' align="center"><button class="dropbtn">Рецепты</button></td>
+                <td width='12%' align='center'><button class='dropbtn'><a style='text-decoration: none; color: white;' href= '{% url "ingredients_all" %}?page=1'>Ингредиенты</a></button></td>
+                <td width='1%'></td>
+                <td width='12%' align='center'><button class='dropbtn'>Рецепты</button></td>
                 <td></td>
-                <td width='12%' align="right">
-                    <div class="dropdown">
-                        <button class="dropbtn"><a style='text-decoration: none; color: white;' href="#1">Username</a></button>
-                        <div class="dropdown-content">
-                            <a href="#3">Мои ингредиенты</a>
-                            <a href="#4">Мои рецепты</a>
-                            <a href="#5">Выйти</a>
+                <td width='12%' align='right'>
+                    <div class='dropdown'>
+                        <button class='dropbtn'><a style='text-decoration: none; color: white;' href='#1'>Username</a></button>
+                        <div class='dropdown-content'>
+                            <a href='#3'>Мои ингредиенты</a>
+                            <a href='#4'>Мои рецепты</a>
+                            <a href='#5'>Выйти</a>
                     </div>
                   </div>
                 </td>

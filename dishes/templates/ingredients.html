@@ -10,11 +10,11 @@
     <div class='ingredients_table'>
         <table>
             <thead>
-                <th width="40%">Ингредиент</th>
-                <th width="15%">Ккал / 100 г</th>
-                <th width="15%">Белки (г)</th>
-                <th width="15%">Жиры (г)</th>
-                <th width="15%">Углеводы (г)</th>
+                <th width='40%'>Ингредиент</th>
+                <th width='15%'>Ккал / 100 г</th>
+                <th width='15%'>Белки (г)</th>
+                <th width='15%'>Жиры (г)</th>
+                <th width='15%'>Углеводы (г)</th>
             </thead>
             <tbody>
                 {% for item in ingredients_page %}
@@ -30,26 +30,26 @@
         </table>
     </div>
     {% if ingredients_page.has_previous or ingredients_page.has_next %}
-    <div class="pagination" style="margin-top: 10px; padding-left: 15px;">
-        <span class="step-links">
+    <div class='pagination' style='margin-top: 10px; margin-left: auto; margin-right: auto;'>
+        <span class='step-links'>
             {% if ingredients_page.has_previous %}
-                <a href="?page=1">&laquo;</a>
+                <a href='?page=1'>&laquo;</a>
                 &nbsp;
-                <a href="?page={{ ingredients_page.previous_page_number }}">&#8249;</a>
+                <a href='?page={{ ingredients_page.previous_page_number }}'>&#8249;</a>
             {% else %}
                 &laquo;
                 &nbsp;
                 &#8249;
             {% endif %}
     
-            <span class="current">
+            <span class='current_page_str'>
                 &nbsp;Страница {{ ingredients_page.number }} из {{ ingredients_page.paginator.num_pages }}&nbsp;
             </span>
     
             {% if ingredients_page.has_next %}
-                <a href="?page={{ ingredients_page.next_page_number }}">&#8250;</a>
+                <a href='?page={{ ingredients_page.next_page_number }}'>&#8250;</a>
                 &nbsp;
-                <a href="?page={{ ingredients_page.paginator.num_pages }}">&raquo;</a>
+                <a href='?page={{ ingredients_page.paginator.num_pages }}'>&raquo;</a>
             {% else %}
                 &#8250;
                 &nbsp;

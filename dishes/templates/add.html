@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}<title>Calorist — Добавить ингредиент</title>{% endblock %}
+
+{% block extra_links %}<link rel='stylesheet' href='{% static "/dishes.css" %}'>{% endblock %}
+
+{% block main_content %}
+<div class='dishes_table'>
+    <table border='0'>
+        <thead>
+            <th colspan='2'>Добавить ингредиент</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td width='40%' align='right'>
+                    <form action='{% url form_action %}' method='post'>
+                        {% csrf_token %}
+                        {{ form }}
+                        <input type='submit' value='Добавить ингредиент'>
+                    </form>
+                </td> 
+                <td></td> 
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

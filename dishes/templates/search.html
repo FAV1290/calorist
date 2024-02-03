@@ -9,7 +9,16 @@
     <h3>Ингредиенты:</h3>
     <ul>
         {% for result in ingredients %}
-            <li>{{ result }}</li>
+            <li>
+                <form method='post'>
+                    {% csrf_token %}
+                    {% if result in request.user.ingredients.all %}
+                    {{ result }} <button type='submit' value='{{ result.id }}' name='release_ingredient_id' formaction='{% url "release_ingredient" %}'>-</button>
+                    {% else %}
+                    {{ result }} <button type='submit' value='{{ result.id }}' name='own_ingredient_id' formaction='{% url "own_ingredient" %}'>+</button>
+                    {% endif %}
+                </form>
+            </li>
         {% endfor %}
     </ul>
 {% endif %}
@@ -17,8 +26,18 @@
     <h3>Рецепты:</h3>
     <ul>
         {% for result in dishes %}
-            <li>{{ result }}</li>
-
+        <li>
+            <form method='post'>
+                {% csrf_token %}
+                {% if result in request.user.dishes.all %}
+                <a href='{% url "dish" result.id %}'>{{ result }}</a>
+                <button type='submit' value='{{ result.id }}' name='release_dish_id' formaction='{% url "release_dish" %}'>-</button>
+                {% else %}
+                <a href='{% url "dish" result.id %}'>{{ result }}</a>
+                <button type='submit' value='{{ result.id }}' name='own_dish_id' formaction='{% url "own_dish" %}'>+</button>
+                {% endif %}
+            </form>
+        </li>
         {% endfor %}
     </ul>
 {% endif %}

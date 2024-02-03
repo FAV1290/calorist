@@ -8,56 +8,68 @@
 
 {% block main_content %}
     <div class='ingredients_table'>
-        <table>
+        <table border="1">
             <thead>
-                <th width='40%'>Ингредиент</th>
-                <th width='15%'>Ккал / 100 г</th>
-                <th width='15%'>Белки (г)</th>
-                <th width='15%'>Жиры (г)</th>
-                <th width='15%'>Углеводы (г)</th>
+                <th width='35%' align="left">Ингредиент</th>
+                <th width='12%'>Ккал / 100 г</th>
+                <th width='12%'>Белки (г)</th>
+                <th width='12%'>Жиры (г)</th>
+                <th width='12%'>Углеводы (г)</th>
+                <th width='17%'>Добавить/Удалить</th>
             </thead>
             <tbody>
+                <form method='post'>
+                {% csrf_token %}
                 {% for item in ingredients_page %}
                 <tr>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.kcal|floatformat }}</td>
-                    <td>{{ item.proteins|floatformat }}</td>
-                    <td>{{ item.fats|floatformat }}</td>
-                    <td>{{ item.carbonhydrates|floatformat }}</td>
+                    <td align="left">{{ item.name }}</td>
+                    <td align="center">{{ item.kcal|floatformat }}</td>
+                    <td align="center">{{ item.proteins|floatformat }}</td>
+                    <td align="center">{{ item.fats|floatformat }}</td>
+                    <td align="center">{{ item.carbonhydrates|floatformat }}</td>
+                    <td align="center">
+                        {% if item in request.user.ingredients.all%}
+                        <button type='submit' value='{{ item.pk }}' name='release_ingredient_id' formaction='{% url "release_ingredient" %}'>-</button>
+                        {% else %}
+                        <button type='submit' value='{{ item.pk }}' name='own_ingredient_id' formaction='{% url "own_ingredient" %}'>+</button>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% empty %}
-                <tr><td colspan='5' align='center'>Ингредиенты не найдены</tr>
+                <tr><td colspan='6' align='center'>Ингредиенты не найдены</tr>
                 {% endfor %}
+                </form>
             </tbody>
         </table>
-    </div>
-    {% if ingredients_page.has_previous or ingredients_page.has_next %}
-    <div class='pagination' style='margin-top: 10px; margin-left: auto; margin-right: auto;'>
-        <span class='step-links'>
-            {% if ingredients_page.has_previous %}
-                <a href='?page=1'>&laquo;</a>
-                &nbsp;
-                <a href='?page={{ ingredients_page.previous_page_number }}'>&#8249;</a>
-            {% else %}
-                &laquo;
-                &nbsp;
-                &#8249;
-            {% endif %}
-    
-            <span class='current_page_str'>
-                &nbsp;Страница {{ ingredients_page.number }} из {{ ingredients_page.paginator.num_pages }}&nbsp;
+        {% if ingredients_page.has_previous or ingredients_page.has_next %}
+        <div class='pagination' style='margin-top: 10px; margin-left: auto; margin-right: auto; text-align: center;'>
+            <span class='step-links'>
+                {% if ingredients_page.has_previous %}
+                    <a href='?page=1'>&#10094;&#10094;</a>
+                    &nbsp;
+                    <a href='?page={{ ingredients_page.previous_page_number }}'>&#10094;</a>
+                {% else %}
+                    &#10094;&#10094;
+                    &nbsp;
+                    &#10094;
+                {% endif %}
+        
+                <span class='current_page_str'>
+                    &nbsp;Страница {{ ingredients_page.number }} из {{ ingredients_page.paginator.num_pages }}&nbsp;
+                </span>
+        
+                {% if ingredients_page.has_next %}
+                    <a href='?page={{ ingredients_page.next_page_number }}'>&#10095;</a>
+                    &nbsp;
+                    <a href='?page={{ ingredients_page.paginator.num_pages }}'>&#10095;&#10095;</a></h1>
+                {% else %}
+                    &#10095;
+                    &nbsp;
+                    &#10095;&#10095;
+                {% endif %}
             </span>
-    
-            {% if ingredients_page.has_next %}
-                <a href='?page={{ ingredients_page.next_page_number }}'>&#8250;</a>
-                &nbsp;
-                <a href='?page={{ ingredients_page.paginator.num_pages }}'>&raquo;</a>
-            {% else %}
-                &#8250;
-                &nbsp;
-                &raquo;
-            {% endif %}
-        </span>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
+
 {% endblock %}

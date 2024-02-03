@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}<title>Calorist — {{ dish.name }}</title>{% endblock %}
+
+{% block extra_links %}
+<link rel='stylesheet' href='{% static "/dishes.css" %}'>
+<link rel='stylesheet' href='{% static "/ingredients.css" %}'>
+{% endblock %}
+
+{% block main_content %}
+        <div class='dishes_table'>
+            <table border="0">
+                <thead>
+                    <th colspan="2">{{ dish.name }}</th>
+                </thead>
+                <tbody>
+                    <tr align="left">
+                        <td width="30%">
+                            {% if dish_image_url %}
+                                <img src='{{ dish_image_url }}'>
+                            {% else %}
+                                <img src='{% static "/default_dish_image.png" %}'>
+                            {% endif %}
+                        </td>   
+                        <td>
+                            <p><b>Блюдо:</b> {{ dish.name }}</p>
+                            <p><b>Автор:</b> {{ dish.created_by }}</p>
+                            <p><b>Вес сырого блюда:</b> {{ dish.weight_raw_grams|floatformat }} г.</p>
+                            <p><b>Ориентировочная ужарка:</b> {{ dish.cooking_loss_percentage|floatformat }}%</p>
+                            <p><b>КБЖУ на базе ингредиентов и ужарки:</b> {{ dish.kcal|floatformat }} / {{ dish.proteins|floatformat }} / {{ dish.fats|floatformat }} / {{ dish.carbonhydrates|floatformat }} </p>                            
+                            <p>
+                                <form method='post'>
+                                {% csrf_token %}
+                                <b>Добавить/Удалить:</b>
+                                {% if dish in request.user.dishes.all%}
+                                <button type='submit' value='{{ dish.pk }}' name='release_dish_id' formaction='{% url "release_dish" %}'>-</button>
+                                {% else %}
+                                <button type='submit' value='{{ dish.pk }}' name='own_dish_id' formaction='{% url "own_dish" %}'>+</button>
+                                {% endif %}
+                                </form>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr><td colspan="2"><b>Ингредиенты:</b></td></tr>     
+                </tbody>
+            </table>
+        </div>
+        <div class='ingredients_table'>
+            <table border="1">
+                <thead>
+                    <th width='40%' align="left">Ингредиент</th>
+                    <th width='26%'>КБЖУ / 100 г.</th>
+                    <th width='17%'>Вес, г.</th>
+                    <th width='17%'>Добавить/Удалить</th>
+                </thead>
+                <tbody>
+                    <form method='post'>
+                    {% csrf_token %}
+                    {% for item in dish_ingredients %}
+                    <tr>
+                        <td align="left">{{ item.ingredient.name }}</td>
+                        <td align="center">{{ item.ingredient.nutrients_str }}</td>
+                        <td align="center">{{ item.weight_grams }}</td>
+                        <td align="center">
+                            {% if item.ingredient in request.user.ingredients.all%}
+                            <button type='submit' value='{{ item.ingredient.pk }}' name='release_ingredient_id' formaction='{% url "release_ingredient" %}'>-</button>
+                            {% else %}
+                            <button type='submit' value='{{ item.ingredient.pk }}' name='own_ingredient_id' formaction='{% url "own_ingredient" %}'>+</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan='6' align='center'>Ингредиенты не найдены</tr>
+                    {% endfor %}
+                    </form>
+                </tbody>
+            </table>
+{% endblock %}

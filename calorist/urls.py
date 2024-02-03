@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dishes.urls')),
     path('users/', include('users.urls')),
-]
+] + static('uploads/dishes_images', document_root='uploads/dishes_images')

@@ -10,7 +10,7 @@
                     <div class='search'>
                         <form method='get' action='{% url "search" %}'>
                         <input type='text' name='q' placeholder='Поиск по сайту...'>
-                        <button type="submit"></button>
+                        <button type='submit'></button>
                         </form>
                     </div>
                 </td>                        
@@ -19,22 +19,22 @@
                         <a style='text-decoration: none; color: white;' href= '{% url "ingredients_all" %}?page=1'>Ингредиенты</a>
                     </button>
                 </td>
-                <td width='1%'></td>
                 <td width='12%' align='center'>
                     <button class='dropbtn'>
                         <a style='text-decoration: none; color: white;' href= '{% url "dishes_all" %}?page=1'>Рецепты</a>
                     </button>
                 </td>
                 <td></td>
-                <td width='12%' align='right'>
+                <td width='17%' align='right'>
                     <div class='dropdown'>
                         {% if request.user.is_authenticated %}
-                        <button class='dropbtn'>
+                        <button class='dropbtn' style='background: #84bbe2;'>
                             <a style='text-decoration: none; color: white;' href='#1'>Профиль ({{ request.user.username }})</a>
                         </button>
                         <div class='dropdown-content'>
                             <a href='{% url "user_ingredients" username=request.user.username %}'>Мои ингредиенты</a>
                             <a href='{% url "user_dishes" username=request.user.username %}'>Мои рецепты</a>
+                            <a href='{% url "add_ingredient" %}'>Добавить ингредиент</a>                            
                             <a href='{% url "logout" %}'>Выйти из профиля</a>
                         {% else %}
                         <button class='dropbtn' style='background: #84bbe2;'>

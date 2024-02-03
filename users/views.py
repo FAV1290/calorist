@@ -6,7 +6,7 @@ from django.shortcuts import HttpResponseRedirect, render
 def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', 'index'))
 
 
 def user_ingredients_view(request, username):
@@ -18,8 +18,9 @@ def user_ingredients_view(request, username):
 
 
 def user_dishes_view(request, username):
-    user_dishes = get_user_model().objects.get(username=username).dishes.all()
-    dishes_paginator = Paginator(user_dishes, 15)
+    user_dishes = get_user_model().objects.get(
+        username=username).dishes.all().prefetch_related('dish_image')
+    dishes_paginator = Paginator(user_dishes, 5)
     page_number = request.GET.get('page', 1)
     adjusted_page = dishes_paginator.get_page(page_number)
     return render(request, 'dishes.html', {'dishes_page': adjusted_page})

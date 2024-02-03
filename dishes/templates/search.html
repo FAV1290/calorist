@@ -4,10 +4,25 @@
 
 {% block main_content %}
 <h1>Результаты поиска</h1>
-<p>По запросу «{{ query }}» найдены следующие ингредиенты:</p>
-<ul>
-    {% for result in results %}
-        <li>{{ result }}</li>
-    {% endfor %}
-</ul>
+<h2>По запросу «{{ query }}» найдены следующие ингредиенты и рецепты:</h2>
+{% if ingredients %}
+    <h3>Ингредиенты:</h3>
+    <ul>
+        {% for result in ingredients %}
+            <li>{{ result }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if dishes %}
+    <h3>Рецепты:</h3>
+    <ul>
+        {% for result in dishes %}
+            <li>{{ result }}</li>
+
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if not ingredients and not dishes %}
+<h3>К сожалению, ничего не найдено</h3>
+{% endif %}
 {% endblock %}

@@ -10,6 +10,9 @@ class UserIngredient(models.Model):
     class Meta:
         ordering = ['ingredient', 'user']
 
+    def __str__(self) -> str:
+        return f'{self.ingredient.name} by {self.user.username}'
+
 
 class UserDish(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -18,6 +21,9 @@ class UserDish(models.Model):
     class Meta:
         ordering = ['dish', 'user']
         verbose_name_plural = 'User dishes'
+
+    def __str__(self) -> str:
+        return f'{self.dish.name} by {self.user.username}'
 
 
 class Ingredient(models.Model):

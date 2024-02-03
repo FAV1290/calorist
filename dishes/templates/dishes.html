@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}<title>Calorist — Рецепты</title>{% endblock %}
+
+{% block extra_links %}<link rel='stylesheet' href='{% static "/ingredients.css" %}'>{% endblock %}
+
+{% block main_content %}
+    <div class='ingredients_table'>
+        <table>
+            <thead>
+                <th width='40%'>Блюдо</th>
+                <th width='15%'>-</th>
+                <th width='15%'>-</th>
+                <th width='15%'>-</th>
+                <th width='15%'>-</th>
+            </thead>
+            <tbody>
+                {% for item in dishes_page %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if dishes_page.has_previous or dishes_page.has_next %}
+    <div class='pagination' style='margin-top: 10px; margin-left: auto; margin-right: auto;'>
+        <span class='step-links'>
+            {% if dishes_page.has_previous %}
+                <a href='?page=1'>&laquo;</a>
+                &nbsp;
+                <a href='?page={{ dishes_page.previous_page_number }}'>&#8249;</a>
+            {% else %}
+                &laquo;
+                &nbsp;
+                &#8249;
+            {% endif %}
+    
+            <span class='current_page_str'>
+                &nbsp;Страница {{ dishes_page.number }} из {{ dishes_page.paginator.num_pages }}&nbsp;
+            </span>
+    
+            {% if dishes_page.has_next %}
+                <a href='?page={{ dishes_page.next_page_number }}'>&#8250;</a>
+                &nbsp;
+                <a href='?page={{ dishes_page.paginator.num_pages }}'>&raquo;</a>
+            {% else %}
+                &#8250;
+                &nbsp;
+                &raquo;
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+{% endblock %}

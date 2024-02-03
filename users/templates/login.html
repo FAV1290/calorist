@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+
+{% if form.errors %}
+    <p>Введенные логин и пароль не соответствуют ни одному существующему профилю. Попробуйте еще раз.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+        <p>У вас нет доступа к данной странице. Пожалуйста, войдите в другой аккаунт или перейдите на другую страницу.</p>
+    {% else %}
+        <p>Пожалуйста, войдите в свой профиль, чтобы получить доступ к данной странице.</p>
+    {% endif %}
+{% endif %}
+
+<form method="post" action='{% url "login" %}'>
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+        </tr>
+    </table>
+    <input type='submit' value='login'>
+    <input type='hidden' name='next' value='{{ next }}'>
+</form>
+<p><a href=''>Забыли пароль?</a></p>
+{% endblock %}
